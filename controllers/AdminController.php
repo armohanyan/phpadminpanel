@@ -2,12 +2,12 @@
 include '/var/www/html/phpadminpanel/database/Model.php';
 
 class AdminController extends Model
-{
+{       
     public function countOfUsersProductsReviews()
     {
         $queryUsersCount = "SELECT COUNT(id) FROM users";
         $queryProductsCount = "SELECT COUNT(id) FROM products";
-        $queryReviewsCount = "SELECT COUNT(id) FROM review";
+        $queryReviewsCount = "SELECT COUNT(id) FROM review";    
 
         $resultOfUsersCount = mysqli_query($this->getConnect(), $queryUsersCount);
         $resultOfProductsCount = mysqli_query($this->getConnect(), $queryProductsCount);
@@ -39,22 +39,6 @@ class AdminController extends Model
                 $users[] = $row;
             }
             return $users;
-        } else {
-            echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
-        }
-    }
-
-    public function products()
-    {
-        $query = "SELECT * FROM products";
-        $result = mysqli_query($this->getConnect(), $query);
-
-        if ($sql = $this->getConnect()->query($query)) {
-            $products = null;
-            while ($row = mysqli_fetch_assoc($sql)) {
-                $products[] = $row;
-            }
-            return $products;
         } else {
             echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
         }

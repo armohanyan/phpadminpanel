@@ -108,7 +108,7 @@ include '../includes/header.php';
             </button>
             <ul class="admin-menu">
                 <li class="menu-heading">
-                    <h3>Admin</h3>  
+                    <h3>Admin</h3>
                 </li>
                 </li>
                 <li>
@@ -153,7 +153,7 @@ include '../includes/header.php';
             </ul>
         </nav>
     </header>
-    <section class="createSection"> 
+    <section class="createSection">
         <form id="createProduct" action="../../controllers/ProductController.php" method="POST" enctype="multipart/form-data">
             <div class="form-group mt-3">
                 <label for="name">Product name</label>
@@ -167,7 +167,7 @@ include '../includes/header.php';
                 <label for="image">Product Image</label>
                 <input type="file" class="form-control" name="image" id="image" required>
             </div>
-            <button type="submit"name="createProduct" class="btn btn-primary mt-3">Submit</button>
+            <button type="submit" name="createProduct" class="btn btn-primary mt-3">Submit</button>
         </form>
     </section>
 </body>
