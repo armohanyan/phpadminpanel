@@ -1,13 +1,16 @@
 <?php
 session_start();
-include '/var/www/html/phpadminpanel/controllers/AdminController.php';  
-include '../includes/header.php';    
-$adminController = new AdminController; 
-$countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();  
+
+include '/var/www/html/phpadminpanel/controllers/AdminController.php';
+include '../includes/header.php';
+
+$adminController = new AdminController;
+$countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
+
 ?>
+
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
-</head>
-<svg style="display:none;">z`
+<svg style="display:none;">
     <symbol id="logo" viewBox="0 0 140 59">
         <g>
             <path d="M6.8 57c0 .4-.1.7-.2.9-.1.2-.3.4-.4.5-.1.1-.4.199-.5.3-.2 0-.3.1-.5.1-.1 0-.3 0-.5-.1-.2 0-.4-.101-.5-.3-.2 0-.4-.2-.5-.4-.1-.2-.2-.5-.2-.9V44.7h-2c-.3 0-.6-.101-.8-.2-.2-.1-.3-.2-.5-.4s-.2-.3-.2-.4v-.4c0-.1 0-.2.1-.399 0-.2.1-.301.2-.4.1-.1.3-.3.5-.4.1 0 .4-.1.7-.1h2.1v-3.5c0-1 .1-1.9.3-2.7C4.1 35 4.5 34.3 5 33.7c.5-.6 1.1-1.1 1.9-1.4.8-.3 1.7-.5 2.7-.5.9 0 1.5.101 1.8.4.3.3.5.6.5 1.1 0 .3-.1.601-.3.9-.2.3-.6.4-1.2.4h-.6c-.6 0-1.1.101-1.5.301-.4.199-.7.5-.9.8C7.2 36 7 36.5 7 37c-.1.5-.1 1-.1 1.6V42h2.7c.3 0 .6.1.8.2.2.1.3.2.5.399.1.101.2.301.2.401 0 .2.1.3.1.4 0 .1 0 .3-.1.399 0 .2-.1.3-.2.4-.1.1-.3.3-.5.399-.2.101-.5.2-.8.2H6.8V57z" />
@@ -106,26 +109,17 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
             </li>
             <li>
                 <a href="./users-table.php">
-                    <svg>
-                        <use xlink:href="#users"></use>
-                    </svg>
-                    <span>Users</span>
+                    <span><i class="fa fa-user" aria-hidden="true"></i>Users</span>
                 </a>
             </li>
             <li>
                 <a href="./products.php">
-                    <svg>
-                        <use xlink:href="#collection"></use>
-                    </svg>
-                    <span>Products</span>
+                    <span><i class="fa fa-th-list" aria-hidden="true"></i>Products</span>
                 </a>
             </li>
             <li>
                 <a href="./create-product.php">
-                    <svg>
-                        <use xlink:href="#comments"></use>
-                    </svg>
-                    <span>Create Products</span>
+                    <span><i class="fa fa-plus-square" aria-hidden="true"></i> Create Products</span>
                 </a>
             </li>
             <li>
@@ -156,15 +150,6 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
                 </svg>
             </button>
         </form>
-        <div class="admin-profile">
-            <span class="greeting">Hello admin</span>
-            <div class="notifications">
-                <span class="badge">1</span>
-                <svg>
-                    <use xlink:href="#users"></use>
-                </svg>
-            </div>
-        </div>
     </section>
     <section class="d-flex">
         <div class="col-sm-12 col-lg-4">
@@ -205,9 +190,8 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
         </div>
     </section>
 </section>
-
-
 <script src="../../resource/js/admin-js.js"></script>
 <script sr="../../resource/js/main.js"></script>
+</body>
 
 </html>

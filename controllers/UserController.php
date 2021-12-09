@@ -52,7 +52,7 @@ class UserController extends Model
 
                 if (mysqli_num_rows($results) == 1) {
                     $_SESSION['user'] = mysqli_fetch_assoc($results);
-
+                    print_r($_SESSION);
                     if ($_SESSION['user']['id'] == 1) {
                         header('Location:../view/admin/index.php');
                     } else {
@@ -68,3 +68,5 @@ class UserController extends Model
     }
 }
 
+$x = new UserController; 
+$x->signIn();   

@@ -1,18 +1,19 @@
 <?php
-session_start();
-
 include '../../controllers/ProductController.php';
 include '../includes/header.php';
 
 $productController = new ProductController;
-$products = $productController->index();
+
+if ($_SESSION) {
+    $products = $_SESSION['resultOfSearch'];
+} else {
+    $products = $productController->index();
+}
 
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
 
-</head>
-<html>
 <style>
     * {
         margin: 0;
@@ -45,7 +46,7 @@ $products = $productController->index();
     }
 
     .card {
-        overflow: hidden;   
+        overflow: hidden;
         padding: 5px;
         margin-right: 5px;
         margin-top: 20px;
@@ -53,7 +54,7 @@ $products = $productController->index();
         border-radius: 30px;
         text-align: center;
         max-width: 210px !important;
-        
+
     }
 
 
@@ -313,29 +314,19 @@ $products = $productController->index();
                 </li>
                 <li>
                     <a href="./users-table.php">
-                        <svg>
-                            <use xlink:href="#users"></use>
-                        </svg>
-                        <span>Users</span>
+                        <span><i class="fa fa-user" aria-hidden="true"></i>Users</span>
                     </a>
                 </li>
                 <li>
                     <a href="./products.php">
-                        <svg>
-                            <use xlink:href="#collection"></use>
-                        </svg>
-                        <span>Products</span>
+                        <span><i class="fa fa-th-list" aria-hidden="true"></i>Products</span>
                     </a>
                 </li>
                 <li>
                     <a href="./create-product.php">
-                        <svg>
-                            <use xlink:href="#comments"></use>
-                        </svg>
-                        <span>Create Products</span>
+                        <span><i class="fa fa-plus-square" aria-hidden="true"></i> Create Products</span>
                     </a>
                 </li>
-
                 <li>
                     <div class="switch">
                         <input type="checkbox" id="mode" checked>
@@ -354,13 +345,24 @@ $products = $productController->index();
             </ul>
         </nav>
     </header>
+    <section class="search-and-user">
+        <form action="../../controllers/ProductController.php" method="POST">
+            <input type="search" name="searchingProduct" placeholder="Search Product...">
+            <button type="submit" name="searchProduct" aria-label="submit form">
+                <svg aria-hidden="true">
+                    <use xlink:href="#search"></use>
+                </svg>
+            </button>
+        </form>
+
+    </section>
     <section id="sectionOfProducts">
         <div class="container">
             <div class=" d-flex flex-wrap justify-content-center">
                 <?php foreach ($products as $product) { ?>
                     <div class="card">
                         <div class="card_img">
-                            <img src="<?php echo '../'. $product['image'] ?>" alt="">
+                            <img src="<?php echo '../' . $product['image'] ?>" alt="">
                         </div>
                         <div class="card_body">
                             <h2 class="card_title"><?php echo $product['name'] ?></h2>

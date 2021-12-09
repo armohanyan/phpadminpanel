@@ -7,7 +7,7 @@ class AdminController extends Model
     {
         $queryUsersCount = "SELECT COUNT(id) FROM users";
         $queryProductsCount = "SELECT COUNT(id) FROM products";
-        $queryReviewsCount = "SELECT COUNT(id) FROM review";    
+        $queryReviewsCount = "SELECT COUNT(id) FROM reviews";    
 
         $resultOfUsersCount = mysqli_query($this->getConnect(), $queryUsersCount);
         $resultOfProductsCount = mysqli_query($this->getConnect(), $queryProductsCount);

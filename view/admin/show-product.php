@@ -1,19 +1,20 @@
 <?php
-session_start();
 
 include '../../controllers/ProductController.php';
 include '../includes/header.php';
 
 $productController = new ProductController;
-$product = $productController->show($_GET['id']);
+$productAndReviews = $productController->show($_GET['id']);
+$product = $productAndReviews[0];
+$reviews = $productAndReviews[1];
+$countOfStars = $productAndReviews[2];
+$avgRating = $productAndReviews[3];
 
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-</head>
-<html>
 <style>
     .article-post .owl-carousel {
         margin-bottom: 20px !important;
@@ -47,6 +48,64 @@ $product = $productController->show($_GET['id']);
         margin: 20px 0;
         font-size: 24px;
         color: #d17581;
+    }
+
+
+    .btn-grey {
+        background-color: #D8D8D8;
+        color: #FFF;
+    }
+
+    .rating-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px 15px 20px 15px;
+        border-radius: 3px;
+    }
+
+    .bold {
+        font-weight: 700;
+    }
+
+    .padding-bottom-7 {
+        padding-bottom: 7px;
+    }
+
+    .review-block {
+        background-color: #FAFAFA;
+        border: 1px solid #EFEFEF;
+        padding: 15px;
+        border-radius: 3px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-name {
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .review-block-date {
+        font-size: 12px;
+    }
+
+    .review-block-rate {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .review-block-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .review-block-description {
+        font-size: 15px;
+    }
+
+    .img-rounded {
+        border-radius: 100%;
+        max-width: 140px
     }
 </style>
 
@@ -150,26 +209,17 @@ $product = $productController->show($_GET['id']);
                 </li>
                 <li>
                     <a href="./users-table.php">
-                        <svg>
-                            <use xlink:href="#users"></use>
-                        </svg>
-                        <span>Users</span>
+                        <span><i class="fa fa-user" aria-hidden="true"></i>Users</span>
                     </a>
                 </li>
                 <li>
                     <a href="./products.php">
-                        <svg>
-                            <use xlink:href="#collection"></use>
-                        </svg>
-                        <span>Products</span>
+                        <span><i class="fa fa-th-list" aria-hidden="true"></i>Products</span>
                     </a>
                 </li>
                 <li>
                     <a href="./create-product.php">
-                        <svg>
-                            <use xlink:href="#comments"></use>
-                        </svg>
-                        <span>Create Products</span>
+                        <span><i class="fa fa-plus-square" aria-hidden="true"></i> Create Products</span>
                     </a>
                 </li>
                 <li>
@@ -203,7 +253,7 @@ $product = $productController->show($_GET['id']);
                             <h4 class="mb40 text-uppercase font500">Reviews</h4>
                         </div>
                         <div class="row" style="margin-top:40px;">
-                            <div class="col-md-6">  
+                            <div class="col-md-6">
                                 <div class="well well-sm">
                                     <div class="text-right">
                                         <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
@@ -224,7 +274,6 @@ $product = $productController->show($_GET['id']);
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </article>
@@ -232,206 +281,140 @@ $product = $productController->show($_GET['id']);
                 </div>
             </div>
         </div>
-    </section>
+        <div class="container">
 
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="rating-block">
+                        <h4>Average user rating</h4>
+                        <h2 class="bold padding-bottom-7"><?php echo $avgRating  ?><small>/ 5</small></h2>
+                        <?php for ($i = 0; $i < round($avgRating); $i++) { ?>
+                            <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            </button>
+                        <?php } ?>
+                        <?php for ($i = round($avgRating); $i < 5; $i++) { ?>
+                            <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            </button>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <h4>Rating breakdown</h4>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 1000%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;"><?php echo $countOfStars[5] ?></div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;"><?php echo $countOfStars[4] ?></div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;"><?php echo $countOfStars[3] ?></div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;"><?php echo $countOfStars[2] ?></div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;"><?php echo $countOfStars[1] ?></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-7">
+                    <hr>
+
+                    <?php
+
+                    if ($reviews) {
+                        foreach ($reviews as $review) { ?>
+                            <div class="review-block">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img src="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png" class="img-rounded">
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="review-block-title"><?php echo $review['username'] ?></div>
+                                        <div class="review-block-rate">
+                                            <?php for ($i = 0; $i < $review['stars']; $i++) { ?>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            <?php } ?>
+                                            <?php for ($i = $review['stars']; $i < 5; $i++) { ?>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+
+                                        <div class="review-block-description"><?php echo $review['comment'] ?></div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                    <?php }
+                    } ?>
+                </div>
+            </div>
+        </div>
+    </section>
     <script src="../../resource/js/admin-js.js"></script>
     <script sr="../../resource/js/main.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script>
-        (function(e) {
-            var t, o = {
-                    className: "autosizejs",
-                    append: "",
-                    callback: !1,
-                    resizeDelay: 10
-                },
-                i = '<textarea tabindex="-1" style="position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; padding: 0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden; transition:none; -webkit-transition:none; -moz-transition:none;"/>',
-                n = ["fontFamily", "fontSize", "fontWeight", "fontStyle", "letterSpacing", "textTransform", "wordSpacing", "textIndent"],
-                s = e(i).data("autosize", !0)[0];
-            s.style.lineHeight = "99px", "99px" === e(s).css("lineHeight") && n.push("lineHeight"), s.style.lineHeight = "", e.fn.autosize = function(i) {
-                return this.length ? (i = e.extend({}, o, i || {}), s.parentNode !== document.body && e(document.body).append(s), this.each(function() {
-                    function o() {
-                        var t, o;
-                        "getComputedStyle" in window ? (t = window.getComputedStyle(u, null), o = u.getBoundingClientRect().width, e.each(["paddingLeft", "paddingRight", "borderLeftWidth", "borderRightWidth"], function(e, i) {
-                            o -= parseInt(t[i], 10)
-                        }), s.style.width = o + "px") : s.style.width = Math.max(p.width(), 0) + "px"
-                    }
+    <script src="../../resource/js/show-article.js"></script>
 
-                    function a() {
-                        var a = {};
-                        if (t = u, s.className = i.className, d = parseInt(p.css("maxHeight"), 10), e.each(n, function(e, t) {
-                                a[t] = p.css(t)
-                            }), e(s).css(a), o(), window.chrome) {
-                            var r = u.style.width;
-                            u.style.width = "0px", u.offsetWidth, u.style.width = r
-                        }
-                    }
-
-                    function r() {
-                        var e, n;
-                        t !== u ? a() : o(), s.value = u.value + i.append, s.style.overflowY = u.style.overflowY, n = parseInt(u.style.height, 10), s.scrollTop = 0, s.scrollTop = 9e4, e = s.scrollTop, d && e > d ? (u.style.overflowY = "scroll", e = d) : (u.style.overflowY = "hidden", c > e && (e = c)), e += w, n !== e && (u.style.height = e + "px", f && i.callback.call(u, u))
-                    }
-
-                    function l() {
-                        clearTimeout(h), h = setTimeout(function() {
-                            var e = p.width();
-                            e !== g && (g = e, r())
-                        }, parseInt(i.resizeDelay, 10))
-                    }
-                    var d, c, h, u = this,
-                        p = e(u),
-                        w = 0,
-                        f = e.isFunction(i.callback),
-                        z = {
-                            height: u.style.height,
-                            overflow: u.style.overflow,
-                            overflowY: u.style.overflowY,
-                            wordWrap: u.style.wordWrap,
-                            resize: u.style.resize
-                        },
-                        g = p.width();
-                    p.data("autosize") || (p.data("autosize", !0), ("border-box" === p.css("box-sizing") || "border-box" === p.css("-moz-box-sizing") || "border-box" === p.css("-webkit-box-sizing")) && (w = p.outerHeight() - p.height()), c = Math.max(parseInt(p.css("minHeight"), 10) - w || 0, p.height()), p.css({
-                        overflow: "hidden",
-                        overflowY: "hidden",
-                        wordWrap: "break-word",
-                        resize: "none" === p.css("resize") || "vertical" === p.css("resize") ? "none" : "horizontal"
-                    }), "onpropertychange" in u ? "oninput" in u ? p.on("input.autosize keyup.autosize", r) : p.on("propertychange.autosize", function() {
-                        "value" === event.propertyName && r()
-                    }) : p.on("input.autosize", r), i.resizeDelay !== !1 && e(window).on("resize.autosize", l), p.on("autosize.resize", r), p.on("autosize.resizeIncludeStyle", function() {
-                        t = null, r()
-                    }), p.on("autosize.destroy", function() {
-                        t = null, clearTimeout(h), e(window).off("resize", l), p.off("autosize").off(".autosize").css(z).removeData("autosize")
-                    }), r())
-                })) : this
-            }
-        })(window.jQuery || window.$);
-
-        var __slice = [].slice;
-        (function(e, t) {
-            var n;
-            n = function() {
-                function t(t, n) {
-                    var r, i, s, o = this;
-                    this.options = e.extend({}, this.defaults, n);
-                    this.$el = t;
-                    s = this.defaults;
-                    for (r in s) {
-                        i = s[r];
-                        if (this.$el.data(r) != null) {
-                            this.options[r] = this.$el.data(r)
-                        }
-                    }
-                    this.createStars();
-                    this.syncRating();
-                    this.$el.on("mouseover.starrr", "span", function(e) {
-                        return o.syncRating(o.$el.find("span").index(e.currentTarget) + 1)
-                    });
-                    this.$el.on("mouseout.starrr", function() {
-                        return o.syncRating()
-                    });
-                    this.$el.on("click.starrr", "span", function(e) {
-                        return o.setRating(o.$el.find("span").index(e.currentTarget) + 1)
-                    });
-                    this.$el.on("starrr:change", this.options.change)
-                }
-                t.prototype.defaults = {
-                    rating: void 0,
-                    numStars: 5,
-                    change: function(e, t) {}
-                };
-                t.prototype.createStars = function() {
-                    var
-                        n = [];
-                    for (e = 1, t = this.options.numStars; 1 <= t ? e <= t : e >= t; 1 <= t ? e++ : e--) {
-                        n.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"))
-                    }
-                    return n
-                };
-                t.prototype.setRating = function(e) {
-                    if (this.options.rating === e) {
-                        e = void 0
-                    }
-                    this.options.rating = e;
-                    this.syncRating();
-                    return this.$el.trigger("starrr:change", e)
-                };
-                t.prototype.syncRating = function(e) {
-                    var t, n, r, i;
-                    e || (e = this.options.rating);
-                    if (e) {
-                        for (t = n = 0, i = e - 1; 0 <= i ? n <= i : n >= i; t = 0 <= i ? ++n : --n) {
-                            this.$el.find("span").eq(t).removeClass("glyphicon-star-empty").addClass("glyphicon-star")
-                        }
-                    }
-                    if (e && e < 5) {
-                        for (t = r = e; e <= 4 ? r <= 4 : r >= 4; t = e <= 4 ? ++r : --r) {
-                            this.$el.find("span").eq(t).removeClass("glyphicon-star").addClass("glyphicon-star-empty")
-                        }
-                    }
-                    if (!e) {
-                        return this.$el.find("span").removeClass("glyphicon-star").addClass("glyphicon-star-empty")
-                    }
-                };
-                return t
-            }();
-            return e.fn.extend({
-                starrr: function() {
-                    var t, r;
-                    r = arguments[0], t = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-                    return this.each(function() {
-                        var i;
-                        i = e(this).data("star-rating");
-                        if (!i) {
-                            e(this).data("star-rating", i = new n(e(this), r))
-                        }
-                        if (typeof r === "string") {
-                            return i[r].apply(i, t)
-                        }
-                    })
-                }
-            })
-        })(window.jQuery, window);
-        $(function() {
-            return $(".starrr").starrr()
-        })
-
-        $(function() {
-
-            $('#new-review').autosize({
-                append: "\n"
-            });
-
-            var reviewBox = $('#post-review-box');
-            var newReview = $('#new-review');
-            var openReviewBtn = $('#open-review-box');
-            var closeReviewBtn = $('#close-review-box');
-            var ratingsField = $('#ratings-hidden');
-
-            openReviewBtn.click(function(e) {
-                reviewBox.slideDown(400, function() {
-                    $('#new-review').trigger('autosize.resize');
-                    newReview.focus();
-                });
-                openReviewBtn.fadeOut(100);
-                closeReviewBtn.show();
-            });
-
-            closeReviewBtn.click(function(e) {
-                e.preventDefault();
-                reviewBox.slideUp(300, function() {
-                    newReview.focus();
-                    openReviewBtn.fadeIn(200);
-                });
-                closeReviewBtn.hide();
-
-            });
-
-            $('.starrr').on('starrr:change', function(e, value) {
-                ratingsField.val(value);
-            });
-        });
-    </script>
 </body>
 
 </html>

@@ -48,6 +48,11 @@ input {
     -webkit-appearance: none;
 }
 
+.fa {
+    font-size: 23px;
+    padding-right: 10px;
+}
+
 [type="checkbox"] {
     position: absolute;
     left: -9999px;
@@ -201,12 +206,8 @@ body {
 }
 
 .search-and-user {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-column-gap: 50px;
-    align-items: center;
-    background: var(--page-content-bgColor);
-    margin-bottom: 30px;
+    width: 67%;
+    margin: 17px auto;
 }
 
 .search-and-user form {

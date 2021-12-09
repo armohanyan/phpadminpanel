@@ -1,6 +1,6 @@
 <?php
 include '/var/www/html/phpadminpanel/database/Model.php';
-
+session_start();
 class ProductController extends Model
 {
 
@@ -21,15 +21,49 @@ class ProductController extends Model
 
     public function show($id)
     {
-
         $query = "SELECT * FROM `products` WHERE id='$id'";
+        $reviewQuery = "SELECT * FROM `reviews` WHERE product_id='$id'";
+        $productAndReviews = [];
+        $product = NULL;
+        $reviews = NULL;
+        $sumOfStars = 0;
+        $count = 0;
+        $countOfStars = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+        ];
 
-        if ($sql = $this->getConnect()->query($query)) {
-            $product = null;
-            while ($row = mysqli_fetch_assoc($sql)) {
+        if ($sqlProduct = $this->getConnect()->query($query)) {
+
+            while ($row = mysqli_fetch_assoc($sqlProduct)) {
                 $product[] = $row;
             }
-            return current($product);
+
+            array_push($productAndReviews, current($product));
+
+            if ($sqlReview = $this->getConnect()->query($reviewQuery)) {
+                while ($rowReviews = mysqli_fetch_assoc($sqlReview)) {
+                    if ($rowReviews['stars'] != null) {
+                        $sumOfStars += $rowReviews['stars'];
+                        $countOfStars[$rowReviews['stars']] += 1;
+                        $count++;
+                    }
+                    $reviews[] = $rowReviews;
+                }
+            } else {
+                echo "Error: " . $reviewQuery . "<br>" . mysqli_error($this->getConnect());
+            }
+
+            $count == 0 ? $avgRating = 0 : $avgRating = $sumOfStars / $count;
+            if ($reviews) {
+                array_reverse($reviews);
+            }
+            array_push($productAndReviews, $reviews,  $countOfStars, round($avgRating, 1));
+
+            return $productAndReviews;
         } else {
             echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
         }
@@ -37,18 +71,54 @@ class ProductController extends Model
 
     public function storeReview()
     {
+
         if (isset($_POST['submitReview'])) {
             $rating = $_POST['rating'];
             $comment = $_POST['comment'];
             $productId = $_POST['submitReview'];
+            $raterUser = $_SESSION['user']['username'];
+
             if (empty($rating) && empty($comment)) {
                 header('Location:../view/admin/show-product.php?id=' . $productId);
-            }
-            //  else {
-            //      $query = "INSERT INTO `reviews` (`name`, `description`, `image`) 
-            //                 VALUES ('$productName', '$productDescription', '$uploadPath')";
-            // }
+            } else {
 
+                if (empty($rating)) {
+                    $rating = 'NULL';
+                }
+
+                $query = "INSERT INTO `reviews` (`username`, `product_id`, `stars`, `comment`) 
+                        VALUES ('$raterUser', '$productId', $rating, '$comment')";
+
+                if (mysqli_query($this->getConnect(), $query)) {
+                    header('Location:../view/admin/show-product.php?id=' . $productId);
+                } else {
+                    echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
+                }
+            }
+        }
+    }
+
+    public function search()
+    {
+        if (isset($_POST['searchProduct'])) {
+            if (!empty($_POST['searchingProduct'])) {
+
+                $searchProduct = $_POST['searchingProduct'];
+                $query = "SELECT * FROM products where name like '%$searchProduct%'";
+
+                if ($sql = $this->getConnect()->query($query)) {
+                    $resultOfSearch = null;
+                    while ($row = mysqli_fetch_assoc($sql)) {
+                        $resultOfSearch[] = $row;
+                    }
+                    $_SESSION['resultOfSearch'] = $resultOfSearch;  
+                    header('Location:../view/admin/products.php');
+                } else {
+                    echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
+                }
+            } else {
+                header('Location:../view/admin/products.php');
+            }
         }
     }
 
@@ -102,5 +172,6 @@ class ProductController extends Model
 }
 
 $productController = new ProductController;
-$productController->create();
+$productController->create();   
+$productController->search();
 $productController->storeReview();
