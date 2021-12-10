@@ -142,14 +142,7 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
 </header>
 <section class="page-content">
     <section class="search-and-user">
-        <form>
-            <input type="search" placeholder="Search Pages...">
-            <button type="submit" aria-label="submit form">
-                <svg aria-hidden="true">
-                    <use xlink:href="#search"></use>
-                </svg>
-            </button>
-        </form>
+       <h3 class="welcomeAdminDashboard" >Welcome to Admin Dashboard</h3>
     </section>
     <section class="d-flex">
         <div class="col-sm-12 col-lg-4">

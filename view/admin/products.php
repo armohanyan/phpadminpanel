@@ -1,14 +1,24 @@
 <?php
+
 include '../../controllers/ProductController.php';
 include '../includes/header.php';
 
 $productController = new ProductController;
 
-if ($_SESSION) {
+array_key_exists('resultOfSearch', $_SESSION) ? $products = $_SESSION['resultOfSearch'] : $products = $productController->index();
+session_destroy();
+
+if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
+} else if (array_key_exists('offset', $_GET)) {
+    $products = $productController->pagination($_GET['offset']);
 } else {
     $products = $productController->index();
 }
+
+$countOfProducts = $productController->countOfProducts();
+$limitProducts = 10;
+$offset = ceil($countOfProducts / $limitProducts);
 
 ?>
 
@@ -212,6 +222,58 @@ if ($_SESSION) {
         }
 
     }
+
+
+
+    .pagination {
+        margin: 32px auto;
+        width: 38%;
+        position: relative;
+        background: #fff;
+        display: flex;
+        padding: 10px 20px;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .pagination>li {
+        list-style: none;
+        line-height: 50px;
+        margin: 0 5px;
+    }
+
+    .pagination>li.pageNumber {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .pagination li a {
+        display: block;
+        text-decoration: none;
+        color: #383838;
+        font-weight: 600;
+        border-radius: 50%;
+    }
+
+    .pagination li.pageNumber:hover a,
+    .pagination li.pageNumber.active a {
+        background: #383838;
+        color: #fff;
+    }
+
+    .pagination li:first-child {
+        margin-right: 30px;
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .pagination li:last-child {
+        margin-left: 30px;
+        font-weight: 700;
+        font-size: 20px;
+    }
 </style>
 
 <body>
@@ -374,8 +436,70 @@ if ($_SESSION) {
             </div>
         </div>
     </section>
+    <section class="sectionOfPagination">
+        <ul class="pagination">
+            <li><a href="" class="prev">
+                    < Prev</a>
+            </li>
+            <?php
+            for ($i = 1; $i <= $offset; $i++) { ?>
+                <li class="pageNumber" data-id="<?php echo $i ?>"><a name="pagination" href="../../view/admin/products.php?offset=<?php echo ($i - 1) * 10 ?>"> <?php echo $i ?> </a></li>
+            <?php } ?>
+            <li><a href="" class="next">Next ></a></li>
+        </ul>
+    </section>
 </body>
 <script src="../../resource/js/admin-js.js"></script>
 <script sr="../../resource/js/main.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.pagination > li').click(function() {
+            localStorage.setItem('active', $(this).attr('data-id'));
+        });
+
+        let activePage = localStorage.getItem('active');
+
+        console.log(localStorage.getItem('active1') != null)
+
+        if (localStorage.getItem('active1') != null) {
+            let activePageAfterNext = localStorage.getItem('active1');
+            $(`li[data-id=${activePageAfterNext}]`).addClass('active');
+        } else if (localStorage.getItem('active') != null) {
+            $(`li[data-id=${activePage}]`).addClass('active');
+        } else {
+            $(`li[data-id=1]`).addClass('active');
+        }
+
+        $(".next").click(function(e) {
+            let getNextElementHref = $(".pagination").find(".pageNumber.active").next().find('a').attr('href');
+            let next = $(".pagination").find(".pageNumber.active").next()
+            $(".pagination").find(".pageNumber.active").prev().removeClass("active");
+            next.addClass("active");
+
+            let nextDataId = next.attr('data-id');
+            localStorage.setItem('active1', nextDataId);
+
+            $(this).attr('href', getNextElementHref);
+        });
+
+
+        $(".prev").click(function(e) {
+            let getPrevElementHref = $(".pagination").find(".pageNumber.active").prev().find('a').attr('href');
+            let prev = $(".pagination").find(".pageNumber.active").prev()
+            prev.addClass("active");
+            $(".pagination").find(".pageNumber.active").next().removeClass("active");
+
+            let prevDataId = prev.attr('data-id');
+            localStorage.setItem('active1', prevDataId);
+
+            $(this).attr('href', getPrevElementHref);
+
+        });
+
+        localStorage.removeItem("active");
+        localStorage.removeItem("active1");
+    });
+</script>
 
 </html>

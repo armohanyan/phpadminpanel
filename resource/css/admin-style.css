@@ -668,6 +668,10 @@ body {
     flex-grow: 1;
 }
 
+.welcomeAdminDashboard {
+    padding: 15px 213px;
+}
+
 .main-container {
     padding-left: 1rem;
     padding-right: 1rem;

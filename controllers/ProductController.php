@@ -6,7 +6,7 @@ class ProductController extends Model
 
     public function index()
     {
-        $query = "SELECT * FROM products";
+        $query = "SELECT * FROM products limit 10";
 
         if ($sql = $this->getConnect()->query($query)) {
             $products = null;
@@ -14,6 +14,33 @@ class ProductController extends Model
                 $products[] = $row;
             }
             return $products;
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
+        }
+    }
+
+    public function pagination($offset)
+    {
+        $query = "SELECT * FROM products LIMIT 10 OFFSET $offset";
+
+        if ($sql = $this->getConnect()->query($query)) {
+            $products = null;
+            while ($row = mysqli_fetch_assoc($sql)) {
+                $products[] = $row;
+            }
+            return $products;
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
+        }
+    }
+
+    public function countOfProducts()
+    {
+        $query = "SELECT count(*)c from products";
+
+        if ($sql = $this->getConnect()->query($query)) {
+            $countOfProduct = current(mysqli_fetch_assoc($sql));
+            return $countOfProduct;
         } else {
             echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
         }
@@ -111,7 +138,7 @@ class ProductController extends Model
                     while ($row = mysqli_fetch_assoc($sql)) {
                         $resultOfSearch[] = $row;
                     }
-                    $_SESSION['resultOfSearch'] = $resultOfSearch;  
+                    $_SESSION['resultOfSearch'] = $resultOfSearch;
                     header('Location:../view/admin/products.php');
                 } else {
                     echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
@@ -172,6 +199,6 @@ class ProductController extends Model
 }
 
 $productController = new ProductController;
-$productController->create();   
+$productController->create();
 $productController->search();
 $productController->storeReview();
