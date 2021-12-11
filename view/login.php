@@ -69,10 +69,10 @@
                         </div>
                         <div>
                             <!-- <span class="material-icons">email</span> -->
-                            <input type="number" min="10" name="age" placeholder="Your age" required/>
-                        </div>  
+                            <input type="number" min="10" name="age" placeholder="Your age" required />
+                        </div>
                         <div style="border:none">
-                            <input type="submit" name="submitSignUp" class="b btn" value="Sign Up"/>
+                            <input type="submit" name="submitSignUp" class="b btn" value="Sign Up" />
                             <input type="button" class="btn" value="Sign In" onclick="showsin()" />
                         </div>
                     </form>

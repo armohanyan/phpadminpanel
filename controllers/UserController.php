@@ -4,7 +4,7 @@ session_start();
 
 class UserController extends Model
 {
-
+    
     public function signUp()
     {
         if (isset($_POST['submitSignUp'])) {
@@ -20,7 +20,7 @@ class UserController extends Model
                         VALUES ('$username', '$email', '$password', $age)";
 
                 if (mysqli_query($this->getConnect(), $query)) {
-                    header('Location:../view/user.php');
+                    header('Location:../view/login.php');
                 } else {
                     echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
                 }
@@ -34,13 +34,12 @@ class UserController extends Model
 
     public function signIn()
     {
-
         if (isset($_POST['submitSignIn'])) {
             $username = mysqli_real_escape_string($this->getConnect(), $_POST['username']);
             $password = mysqli_real_escape_string($this->getConnect(), $_POST['password']);
             $errors = [];
 
-            if (empty($username) && empty($password)) {
+            if (empty($username) || empty($password)) {
                 array_push($errors, "Empty field(s)");
                 $_SESSION['errors'] = $errors;
                 header('Location:../view/login.php');
@@ -68,4 +67,6 @@ class UserController extends Model
 }
 
 $uerController = new UserController; 
-$$uerController->signIn();   
+
+$uerController->signIn();   
+$uerController->signUp();  
