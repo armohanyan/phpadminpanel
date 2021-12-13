@@ -374,7 +374,7 @@ $avgRating = $productAndReviews[3];
                 <div class="col-sm-7">
                     <hr>
                     <?php
-                    if ($reviews) {
+                     if ($reviews) {
                         foreach ($reviews as $review) { ?>
                             <div class="review-block">
                                 <div class="row">
