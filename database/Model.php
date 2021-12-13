@@ -32,7 +32,7 @@ class Model
         $this->$conn = $conn;
 
         if ($this->$conn) {
-            die("Connection failed:" . mysqli_connect_error());
+            // die("Connection failed:" . mysqli_connect_error());
             echo "error";
         }
         else{
@@ -46,4 +46,4 @@ class Model
     }
 }
 
-$model = new Model;
+// $model = new Model;
