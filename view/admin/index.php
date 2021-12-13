@@ -1,7 +1,7 @@
 <?php
 // session_start();
 
-include '../../controllers/AdminController.php';
+include '../controllers/AdminController.php';
 include '../includes/header.php';
 
 $adminController = new AdminController;
