@@ -1,5 +1,5 @@
 <?php
-
+echo "success"; 
 class Model
 {
     // private $servername  = 'localhost';
