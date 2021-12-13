@@ -1,5 +1,5 @@
 <?php
-include '../../Model.php';
+include '../Model.php';
 session_start();
 
 class UserController extends Model
