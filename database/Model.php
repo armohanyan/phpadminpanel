@@ -21,9 +21,9 @@ class Model
     {
         $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
         $cleardb_server = $cleardb_url["us-cdbr-east-05.cleardb.net"];
-        $cleardb_username = $cleardb_url["b59a852b277dc4"];
-        $cleardb_password = $cleardb_url["858ba862"];
-        $cleardb_db = substr($cleardb_url["mysql://b59a852b277dc4:858ba862@us-cdbr-east-05.cleardb.net/heroku_fae88e21dd79ac0?reconnect=true"],1);
+        $cleardb_username = $cleardb_url["b8e2a3fc0959b8"];
+        $cleardb_password = $cleardb_url["a83b86eb"];
+        $cleardb_db = substr($cleardb_url["mysql://b8e2a3fc0959b8:a83b86eb@us-cdbr-east-05.cleardb.net/heroku_cb2598b8971e8f8?reconnect=true"],1);
         
         $active_group = 'default';
         $query_builder = TRUE;
