@@ -5,7 +5,7 @@ class Model
     // private $username = 'root';
     // private $password  = 'p7omkwud+';
     // private $database = 'admin-panel-php';
-    
+
     // public $cleardb_url; = parse_url(getenv("CLEARDB_DATABASE_URL"));
     // private $cleardb_server = $this->$cleardb_url["us-cdbr-east-05.cleardb.net"];
     // private $cleardb_username = $this->$cleardb_url["b59a852b277dc4"];
@@ -22,20 +22,19 @@ class Model
         $cleardb_server = $cleardb_url["us-cdbr-east-05.cleardb.net"];
         $cleardb_username = $cleardb_url["b8e2a3fc0959b8"];
         $cleardb_password = $cleardb_url["a83b86eb"];
-        $cleardb_db = substr($cleardb_url["admin-panel-php"],1);
-        
+        $cleardb_db = substr($cleardb_url["admin-panel-php"], 1);
+
         $active_group = 'default';
         $query_builder = TRUE;
-        
+
         $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
-        
+
         $this->$conn = $conn;
 
         if ($this->$conn) {
             // die("Connection failed:" . mysqli_connect_error());
             echo "error";
-        }
-        else{
+        } else {
             echo "success";
         }
     }
@@ -44,6 +43,11 @@ class Model
     {
         return $this->conn;
     }
-}
 
+    public function read()
+    {
+        echo "Is reading";
+    }
+}
 $model = new Model;
+$model->read();
