@@ -1,7 +1,8 @@
 <?php
 session_start();
-include '/var/www/html/phpadminpanel/controllers/AdminController.php';
+include '../../controllers/AdminController.php';
 include '../includes/header.php';
+
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">

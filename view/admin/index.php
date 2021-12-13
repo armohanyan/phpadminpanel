@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 include '../../controllers/AdminController.php';
 include '../includes/header.php';

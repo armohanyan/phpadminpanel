@@ -1,5 +1,5 @@
-<?php
-include '../database/Model.php';
+<?php   
+include '../../Model.php';
 
 class AdminController extends Model
 {       

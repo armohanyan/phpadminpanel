@@ -1,6 +1,7 @@
 <?php
-include '../database/Model.php';
-session_start();
+include '../../Model.php';
+session_start();    
+
 class ProductController extends Model
 {
 
