@@ -1,5 +1,5 @@
 <?php
-include '../../Model.php';
+require '../Model.php';
 session_start();
 
 class ProductController extends Model
@@ -153,14 +153,13 @@ class ProductController extends Model
     public function create()
     {
         if (isset($_POST['createProduct'])) {
-
+            $productDescription = $_POST['description'];
+            $productName = $_POST['name'];
             if (isset($_POST['image'])) {
                 $uploadDirectory = "../public/images/";
                 $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];
                 $fileName = $_FILES['image']['name'];
                 $fileSize = $_FILES['image']['size'];
-                $productName = $_POST['name'];
-                $productDescription = $_POST['description'];
                 $fileTmpName  = $_FILES['image']['tmp_name'];
                 $expodeFile = explode('.', $fileName);
                 $fileExtension = strtolower(end($expodeFile));
