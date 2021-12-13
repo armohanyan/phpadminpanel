@@ -1,6 +1,6 @@
 <?php
 include '../../Model.php';
-session_start();    
+session_start();
 
 class ProductController extends Model
 {
@@ -154,25 +154,30 @@ class ProductController extends Model
     {
         if (isset($_POST['createProduct'])) {
 
-            $uploadDirectory = "../public/images/";
-            $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];
-            $fileName = $_FILES['image']['name'];
-            $fileSize = $_FILES['image']['size'];
-            $productName = $_POST['name'];
-            $productDescription = $_POST['description'];
-            $fileTmpName  = $_FILES['image']['tmp_name'];
-            $expodeFile = explode('.', $fileName);
-            $fileExtension = strtolower(end($expodeFile));
-            $newfilename = round(microtime(true)) . '.' . $fileExtension;
-            $errors = [];
-            $uploadPath =  $uploadDirectory . $newfilename;
+            if (isset($_POST['image'])) {
+                $uploadDirectory = "../public/images/";
+                $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];
+                $fileName = $_FILES['image']['name'];
+                $fileSize = $_FILES['image']['size'];
+                $productName = $_POST['name'];
+                $productDescription = $_POST['description'];
+                $fileTmpName  = $_FILES['image']['tmp_name'];
+                $expodeFile = explode('.', $fileName);
+                $fileExtension = strtolower(end($expodeFile));
+                $newfilename = round(microtime(true)) . '.' . $fileExtension;
+                $errors = [];
+                $uploadPath =  $uploadDirectory . $newfilename;
 
-            if (!in_array($fileExtension, $fileExtensionsAllowed)) {
-                $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+                if (!in_array($fileExtension, $fileExtensionsAllowed)) {
+                    $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+                }
+
+                if ($fileSize > 25000000) {
+                    $errors[] = "File exceeds maximum size (25MB)";
+                }
             }
-
-            if ($fileSize > 25000000) {
-                $errors[] = "File exceeds maximum size (25MB)";
+            else{ 
+                $uploadPath = null; 
             }
 
             if (empty($productName) && empty($productDescription)) {

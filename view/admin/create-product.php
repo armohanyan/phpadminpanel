@@ -156,7 +156,7 @@ include '../includes/header.php';
         </div>
         <div class="form-group mt-3">
             <label for="image">Product Image</label>
-            <input type="file" class="form-control" name="image" id="image" required>
+            <input type="file" class="form-control" name="image" id="image">
         </div>
         <button type="submit" name="createProduct" class="btn btn-primary mt-3">Submit</button>
     </form>
