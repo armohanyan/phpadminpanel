@@ -38,15 +38,15 @@
                     <form action="../controllers/UserController.php" method="post">
                         <div>
                             <span class="material-icons">person</span>
-                            <input type="text" name="username" placeholder="Username" />
+                            <input type="text" name="username" placeholder="Username" required />
                         </div>
                         <div>
                             <span class="material-icons">password</span>
-                            <input type="password" name="password" class="pswrdin" placeholder="Your password" />
+                            <input type="password" name="password" class="pswrdin" placeholder="Your password"  required />
                             <span class="material-icons visin" onclick="changein()">visibility</span>
                         </div>
                         <div>
-                            <input type="submit" name="submitSignIn" class="b btn" value="Sign In" />
+                            <input type="submit" name="submitSignIn" class="b btn" value="Sign In"  required />
                             <input type="button" class="btn" value="Sign Up" onclick="showsup()" />
                         </div>
                     </form>
@@ -56,15 +56,15 @@
                     <form action="../controllers/UserController.php" method="post">
                         <div>
                             <span class="material-icons">person</span>
-                            <input type="text" name="username" placeholder="Username" />
+                            <input type="text" name="username" placeholder="Username" required />
                         </div>
                         <div>
                             <span class="material-icons">email</span>
-                            <input type="email" name="email" placeholder="Your email" />
+                            <input type="email" name="email" placeholder="Your email"  required />
                         </div>
                         <div>
                             <span class="material-icons">password</span>
-                            <input type="password" name="password" class="pswrdup" placeholder="Your password" />
+                            <input type="password" name="password" class="pswrdup" placeholder="Your password"  required />
                             <span class="material-icons visup" onclick="changeup()">visibility</span>
                         </div>
                         <div>

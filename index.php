@@ -1,4 +1,4 @@
-<?php include './includes/header.php' ?>
+<?php include './view/includes/header.php' ?>
 
 <style>
   html,
@@ -77,12 +77,12 @@
     <nav class="nav">
       <div class="navButtons"></div>
       <div class="buttonsLogin">
-        <a href="./login.php">Sign In</a>
-        <a href="./login.php">Log In</a>
+        <a href="./view/login.php">Sign In</a>
+        <a href="./view/login.php">Log In</a> 
       </div>
     </nav>
   </div>
 </body>
-<script src="../resource/js/main.js"></script>
+<script src="./resource/js/main.js"></script>
 
 </html>
