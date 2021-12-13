@@ -46,4 +46,4 @@ class Model
     }
 }
 
-// $model = new Model;
+$model = new Model;
