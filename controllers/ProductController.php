@@ -1,6 +1,9 @@
 <?php
-require '../Model.php';
-session_start();
+if( ! array_key_exists('modelPath',  $_SESSION)){
+    $_SESSION['modelPath'] = '../Model.php';
+}
+
+include $_SESSION['modelPath'];
 
 class ProductController extends Model
 {
@@ -174,9 +177,8 @@ class ProductController extends Model
                 if ($fileSize > 25000000) {
                     $errors[] = "File exceeds maximum size (25MB)";
                 }
-            }
-            else{ 
-                $uploadPath = null; 
+            } else {
+                $uploadPath = null;
             }
 
             if (empty($productName) && empty($productDescription)) {
