@@ -35,7 +35,9 @@ class Model
         if ($this->$conn) {
             die("Connection failed:" . mysqli_connect_error());
         }
-
+        else{
+            echo "success";
+        }
     }
 
     public function getConnect()
