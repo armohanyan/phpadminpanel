@@ -2,40 +2,9 @@
 
 class Model
 {
-    // private $servername  = 'localhost';
-    // private $username = 'root';
-    // private $password  = 'p7omkwud+';
-    // private $database = 'admin-panel-php';
-
-    public function __construct()
-    {
-        // $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-        // $cleardb_server = $cleardb_url["us-cdbr-east-05.cleardb.net"];
-        // $cleardb_username = $cleardb_url["b8e2a3fc0959b8"];
-        // $cleardb_password = $cleardb_url["a83b86eb"];
-        // $cleardb_db = substr($cleardb_url["admin-panel-php"], 1);
-        // $servername  = 'localhost';
-        // $username = 'root';
-        // $password  = 'p7omkwud+';
-        // $database = 'admin-panel-php';
-
-        // // $active_group = 'default';
-        // // $query_builder = TRUE;
-
-        // $conn = mysqli_connect($servername, $username, $password, $database);
-
-        // // $this->$conn = $conn;
-
-        // if ($conn) {
-        //     // die("Connection failed:" . mysqli_connect_error());
-        //     echo "error";
-        // } else {
-        //     echo "success";
-        // }
-    }
 
     public function getConnect()
-    {
+    {   
         // $servername  = 'localhost';
         // $username = 'root';
         // $password  = 'p7omkwud+';
@@ -60,3 +29,6 @@ class Model
         }
     }
 }
+
+$model = new Model;
+$model->getConnect();
