@@ -15,7 +15,7 @@ class Model
         $cleardb_username = $cleardb_url["b8e2a3fc0959b8"];
         $cleardb_password = $cleardb_url["a83b86eb"];
         $cleardb_db = substr($cleardb_url["heroku_cb2598b8971e8f8"], 1);
-
+        
         $active_group = 'default';
         $query_builder = TRUE;
 
