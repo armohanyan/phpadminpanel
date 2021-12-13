@@ -1,5 +1,4 @@
 <?php
-echo "success"; 
 class Model
 {
     // private $servername  = 'localhost';
@@ -34,6 +33,7 @@ class Model
 
         if ($this->$conn) {
             die("Connection failed:" . mysqli_connect_error());
+            echo "error";
         }
         else{
             echo "success";
@@ -45,3 +45,5 @@ class Model
         return $this->conn;
     }
 }
+
+$model = new Model;
