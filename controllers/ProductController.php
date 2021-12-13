@@ -1,5 +1,5 @@
 <?php
-include '/var/www/html/phpadminpanel/database/Model.php';
+include '../database/Model.php';
 session_start();
 class ProductController extends Model
 {
