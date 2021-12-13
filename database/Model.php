@@ -28,7 +28,7 @@ class Model
         $active_group = 'default';
         $query_builder = TRUE;
         
-        $this->$conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+        $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
         
         $this->$conn = $conn;
 
