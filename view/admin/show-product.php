@@ -5,9 +5,9 @@ include '../includes/header.php';
 
 $productController = new ProductController;
 $productAndReviews = $productController->show($_GET['id']);
-echo '<pre>';
-print_r($productAndReviews);
-echo '</pre>';
+// echo '<pre>';
+// print_r($productAndReviews);
+// echo '</pre>';
 $product = $productAndReviews[0];
 $reviews = array_reverse($productAndReviews[1]);
 $countOfStars = $productAndReviews[2];

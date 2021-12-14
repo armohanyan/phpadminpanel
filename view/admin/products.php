@@ -425,7 +425,7 @@ session_destroy();
                 <?php foreach ($products as $product) { ?>
                     <div class="card">
                         <div class="card_img">
-                            <img src="<?php echo '../' . $product['image'] ?>" alt="">
+                            <img src="https://alison-application.herokuapp.com/images/default.png" alt="">
                         </div>
                         <div class="card_body">
                             <h2 class="card_title"><?php echo $product['name'] ?></h2>
