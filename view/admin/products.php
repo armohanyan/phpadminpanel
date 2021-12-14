@@ -423,7 +423,7 @@ session_destroy();
                         <div class="card_body">
                             <h2 class="card_title"><?php echo $product['name'] ?></h2>
                             <p><?php echo $product['description'] ?></p>
-                            <a href="./show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Read Article</a>
+                            <a href="./show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Read Product</a>
                         </div>
                     </div>
                 <?php } ?>
