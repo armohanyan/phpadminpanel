@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '/app/database/Model.php';
-// include '/var/www/html/phpadminpanel/database/Model.php';  
+// include '/app/database/Model.php';
+include '/var/www/html/phpadminpanel/database/Model.php';  
 
 class ProductController extends Model
 {
@@ -150,6 +150,7 @@ class ProductController extends Model
         if (isset($_POST['createProduct'])) {
             $productDescription = $_POST['description'];
             $productName = $_POST['name'];
+            print_r($productName);  
             if (isset($_POST['image'])) {
                 $uploadDirectory = "../public/images/";
                 $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];

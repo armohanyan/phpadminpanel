@@ -1,6 +1,6 @@
 <?php
-
 include '../../controllers/ProductController.php';
+
 include '../includes/header.php';
 
 $productController = new ProductController;
@@ -8,10 +8,13 @@ array_key_exists('resultOfSearch', $_SESSION) ? $products = $_SESSION['resultOfS
 
 if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
+    $paginateNull = false;   
 } else if (array_key_exists('offset', $_GET)) {
     $products = $productController->pagination($_GET['offset']);
+    $paginateNull = true;   
 } else {
     $products = $productController->index();
+    $paginateNull = true;   
 }
 
 $countOfProducts = $productController->countOfProducts();
@@ -428,6 +431,7 @@ session_destroy();
             </div>
         </div>
     </section>
+    <?php if($paginateNull) { ?>
     <section class="sectionOfPagination">
         <ul class="pagination">
             <li><a href="" class="prev">
@@ -440,6 +444,7 @@ session_destroy();
             <li><a href="" class="next">Next ></a></li>
         </ul>
     </section>
+    <?php } ?>
 </body>
 <script src="../../resource/js/admin-js.js"></script>
 <script sr="../../resource/js/main.js"></script>
