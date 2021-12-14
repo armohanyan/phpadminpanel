@@ -1,4 +1,6 @@
 <?php
+session_start();
+print_r($_SESSION);
 
 // if( ! array_key_exists('modelPath',  $_SESSION)){
 // }
@@ -7,7 +9,7 @@
 // include $_SESSION['modelPath'];
 // $filePath = './'.dirname(__FILE__).'RES/Model.php';
 // include '/database/Model.php';  
-die(dirname('resource/Model.php'));
+// die(realpath('/Model.php'), PHP_EOL);
 
 class ProductController extends Model
 {

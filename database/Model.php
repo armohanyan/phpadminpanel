@@ -1,4 +1,8 @@
 <?php
+session_start();
+$path = realpath(__FILE__);
+$_SESSION['pathModel'] = $path; 
+// session_destroy();
 
 class Model
 {
