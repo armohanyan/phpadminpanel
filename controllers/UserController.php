@@ -1,10 +1,11 @@
 <?php
 
-include '/app/database/Model.php';  
+// include '/app/database/Model.php';
+include '/var/www/html/phpadminpanel/database/Model.php';  
 
 class UserController extends Model
 {
-    
+
     public function signUp()
     {
         if (isset($_POST['submitSignUp'])) {
@@ -15,7 +16,7 @@ class UserController extends Model
                 $email = $_POST['email'];
                 $password = $_POST['password'];
                 $age = $_POST['age'];
-                
+
                 $query = "INSERT INTO `users` (`username`, `email`, `password`, `age`) 
                         VALUES ('$username', '$email', '$password', $age)";
 
@@ -66,7 +67,7 @@ class UserController extends Model
     }
 }
 
-$uerController = new UserController; 
+$uerController = new UserController;
 
-$uerController->signIn();   
-$uerController->signUp();  
+$uerController->signIn();
+$uerController->signUp();

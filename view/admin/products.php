@@ -1,7 +1,5 @@
 <?php
-session_start(); 
-// $_SESSION['modelPath'] = '../../Model.php';
-
+session_start();
 include '../../controllers/ProductController.php';
 
 include '../includes/header.php';
@@ -21,8 +19,8 @@ if (array_key_exists('resultOfSearch', $_SESSION)) {
 $countOfProducts = $productController->countOfProducts();
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
-
 session_destroy();
+
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
