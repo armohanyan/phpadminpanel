@@ -5,10 +5,12 @@ include '../includes/header.php';
 
 $productController = new ProductController;
 $productAndReviews = $productController->show($_GET['id']);
+echo '<pre>';
 print_r($productAndReviews);
+echo '</pre>';
 $product = $productAndReviews[0];
 $reviews = array_reverse($productAndReviews[1]);
-$countOfStars = $productAndReviews[2];  
+$countOfStars = $productAndReviews[2];
 $avgRating = $productAndReviews[3];
 
 ?>
@@ -375,7 +377,7 @@ $avgRating = $productAndReviews[3];
                 <div class="col-sm-7">
                     <hr>
                     <?php
-                     if ($reviews) {
+                    if ($reviews) {
                         foreach ($reviews as $review) { ?>
                             <div class="review-block">
                                 <div class="row">
