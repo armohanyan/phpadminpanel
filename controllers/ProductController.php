@@ -102,11 +102,11 @@ class ProductController extends Model
             $raterUser = $_SESSION['user']['username'];
 
             if (empty($rating) && empty($comment)) {
-                header('Location:../view/show-product.php?id=' . $productId);
+                header('Location:../view/show-product.php?id='.$productId);
             } else {
 
                 if (empty($rating)) {
-                    $rating = 'NULL';
+                    $rating = null;
                 }
 
                 $query = "INSERT INTO `reviews` (`username`, `product_id`, `stars`, `comment`) 
