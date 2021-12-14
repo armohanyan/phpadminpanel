@@ -5,11 +5,10 @@
 // $_SESSION['modelPath'] = '../Model.php';
 
 // include $_SESSION['modelPath'];
-
+$filePath = './databse/Model.php';
+print_r($filePath); 
 include '/database/Model.php';  
 
-$file = dirname(__FILE__); 
-print_r($file);
 class ProductController extends Model
 {
 
