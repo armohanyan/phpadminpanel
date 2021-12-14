@@ -10,14 +10,15 @@ if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
     $paginateNull = false;   
 } else if (array_key_exists('offset', $_GET)) {
-    $products = $productController->pagination($_GET['offset']);
+    $products = array_reverse($productController->pagination($_GET['offset']));
+    $countOfProducts = $productController->countOfProducts();
     $paginateNull = true;   
 } else {
-    $products = $productController->index();
+    $products = array_reverse($productController->index());
     $paginateNull = true;   
 }
-array_reverse($products);
 $countOfProducts = $productController->countOfProducts();
+
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
 session_destroy();
