@@ -52,18 +52,12 @@ class ProductController extends Model
     {
         $query = "SELECT * FROM `products` WHERE id='$id'";
         $reviewQuery = "SELECT * FROM `reviews` WHERE product_id='$id'";
+        $countOfStars = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
         $productAndReviews = [];
         $product = NULL;
         $reviews = NULL;
         $sumOfStars = 0;
         $count = 0;
-        $countOfStars = [
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-            5 => 0,
-        ];
 
         if ($sqlProduct = $this->getConnect()->query($query)) {
 

@@ -5,6 +5,7 @@ include '../includes/header.php';
 
 $productController = new ProductController;
 $productAndReviews = $productController->show($_GET['id']);
+print_r($productAndReviews);
 $product = $productAndReviews[0];
 $reviews = array_reverse($productAndReviews[1]);
 $countOfStars = $productAndReviews[2];  
