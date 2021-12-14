@@ -1,15 +1,12 @@
 <?php
-session_start();
-print_r($_SESSION);
 
+include '/app/database/Model.php';  
 // if( ! array_key_exists('modelPath',  $_SESSION)){
 // }
 // $_SESSION['modelPath'] = '../Model.php';
 
 // include $_SESSION['modelPath'];
 // $filePath = './'.dirname(__FILE__).'RES/Model.php';
-// include '/database/Model.php';  
-// die(realpath('/Model.php'), PHP_EOL);
 
 class ProductController extends Model
 {
