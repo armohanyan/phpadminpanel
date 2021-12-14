@@ -123,13 +123,6 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
                 </a>
             </li>
             <li>
-                <div class="switch">
-                    <input type="checkbox" id="mode" checked>
-                    <label for="mode">
-                        <span></span>
-                        <span>Dark</span>
-                    </label>
-                </div>
                 <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
                     <svg aria-hidden="true">
                         <use xlink:href="#collapse"></use>
@@ -142,7 +135,7 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
 </header>
 <section class="page-content">
     <section class="search-and-user">
-       <h3 class="welcomeAdminDashboard" >Welcome to Admin Dashboard</h3>
+        <h3 class="welcomeAdminDashboard">Welcome to Admin Dashboard</h3>
     </section>
     <section class="d-flex">
         <div class="col-sm-12 col-lg-4">

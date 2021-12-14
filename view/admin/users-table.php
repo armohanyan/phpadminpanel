@@ -123,13 +123,6 @@ $users = $adminController->users();
                 </a>
             </li>
             <li>
-                <div class="switch">
-                    <input type="checkbox" id="mode" checked>
-                    <label for="mode">
-                        <span></span>
-                        <span>Dark</span>
-                    </label>
-                </div>
                 <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
                     <svg aria-hidden="true">
                         <use xlink:href="#collapse"></use>
