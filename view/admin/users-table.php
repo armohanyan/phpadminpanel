@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-include '/var/www/html/phpadminpanel/controllers/AdminController.php';
-include '../includes/header.php';
+include '../../controllers/AdminController.php';
+include '../includes/header.php';       
 
 $adminController = new AdminController;
-$users = $adminController->users(); ?>
+$users = $adminController->users(); 
+
+?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
 <svg style="display:none;">z`
