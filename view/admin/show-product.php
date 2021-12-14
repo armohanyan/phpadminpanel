@@ -248,7 +248,7 @@ $avgRating = $productAndReviews[3];
             <div class="row">
                 <div class="col-md-9 mb40">
                     <article>
-                        <img src="<?php echo '../' . $product['image'] ?>" alt="" class="img-fluid mb30">
+                        <img src="https://alison-application.herokuapp.com/images/default.png" alt="" class="img-fluid mb30">
                         <div class="post-content">
                             <h3><?php echo $product['name'] ?></h3>
                             <p><?php echo $product['description'] ?></p>
@@ -261,7 +261,6 @@ $avgRating = $productAndReviews[3];
                                     <div class="text-right">
                                         <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
                                     </div>
-
                                     <div class="row" id="post-review-box" style="display:none;">
                                         <div class="col-md-12">
                                             <form action="../../controllers/ProductController.php" method="post">

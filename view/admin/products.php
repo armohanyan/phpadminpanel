@@ -440,7 +440,7 @@ session_destroy();
     <section class="sectionOfPagination">
         <ul class="pagination">
             <li><a href="" class="prev">
-                    < Prev</a>
+                < Prev</a>
             </li>
             <?php
             for ($i = 1; $i <= $offset; $i++) { ?>
