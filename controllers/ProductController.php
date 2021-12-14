@@ -110,7 +110,7 @@ class ProductController extends Model
                 }
 
                 $query = "INSERT INTO `reviews` (`username`, `product_id`, `stars`, `comment`) 
-                        VALUES ('$raterUser', '$productId', $rating, '$comment')";
+                        VALUES ('$raterUser', '$productId', '$rating', '$comment')";
 
                 if (mysqli_query($this->getConnect(), $query)) {
                     header('Location:../view/show-product.php?id=' . $productId);
