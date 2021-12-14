@@ -1,7 +1,7 @@
 <?php
 session_start();
-// include '/app/database/Model.php';
-include '/var/www/html/phpadminpanel/database/Model.php';  
+include '/app/database/Model.php';
+// include '/var/www/html/phpadminpanel/database/Model.php';  
 
 class ProductController extends Model
 {
