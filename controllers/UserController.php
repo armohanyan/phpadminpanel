@@ -1,8 +1,6 @@
 <?php
 
-include '../database/Model.php';
-print_r($_SESSION);
-// session_start();
+include '/app/database/Model.php';  
 
 class UserController extends Model
 {

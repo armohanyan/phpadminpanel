@@ -1,5 +1,5 @@
 <?php   
-include 'phpadminpanel/database/Model.php';  
+include '/app/database/Model.php';  
 
 class AdminController extends Model
 {       
