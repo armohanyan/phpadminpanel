@@ -6,7 +6,7 @@
 
 // include $_SESSION['modelPath'];
 // $filePath = './'.dirname(__FILE__).'RES/Model.php';
-print_r(realpath(dirname(__FILE__)));
+print_r('./'.realpath(dirname(__FILE__)));
 include '/database/Model.php';  
 
 class ProductController extends Model
