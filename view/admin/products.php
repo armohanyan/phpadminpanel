@@ -10,11 +10,11 @@ if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
     $paginateNull = false;   
 } else if (array_key_exists('offset', $_GET)) {
-    $products = array_reverse($productController->pagination($_GET['offset']));
+    $products = $productController->pagination($_GET['offset']);
     $countOfProducts = $productController->countOfProducts();
     $paginateNull = true;   
 } else {
-    $products = array_reverse($productController->index());
+    $products =  $productController->index();
     $paginateNull = true;   
 }
 $countOfProducts = $productController->countOfProducts();
