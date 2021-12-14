@@ -1,11 +1,9 @@
 <?php
-session_start();
-include '../../controllers/ProductController.php';
 
+include '../../controllers/ProductController.php';
 include '../includes/header.php';
 
 $productController = new ProductController;
-
 array_key_exists('resultOfSearch', $_SESSION) ? $products = $_SESSION['resultOfSearch'] : $products = $productController->index();
 
 if (array_key_exists('resultOfSearch', $_SESSION)) {
