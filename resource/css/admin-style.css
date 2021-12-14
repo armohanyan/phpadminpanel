@@ -706,3 +706,10 @@ body {
         display: none;
     }
 }
+
+.logout {
+    width: 100%;
+    text-align: right;
+    align-items: baseline;
+    justify-content: flex-end;
+}

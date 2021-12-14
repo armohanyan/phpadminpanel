@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '/app/database/Model.php';
-// include '/var/www/html/phpadminpanel/database/Model.php';  
+// include '/var/www/html/phpadminpanel/database/Model.php';
 
 class ProductController extends Model
 {
@@ -23,7 +23,7 @@ class ProductController extends Model
 
     public function pagination($offset)
     {
-        $query = "SELECT * FROM products LIMIT 10 OFFSET $offset";
+        $query = "SELECT * FROM products LIMIT 10 OFFSET $offset"; //30
 
         if ($sql = $this->getConnect()->query($query)) {
             $products = null;
@@ -102,7 +102,7 @@ class ProductController extends Model
             $raterUser = $_SESSION['user']['username'];
 
             if (empty($rating) && empty($comment)) {
-                header('Location:../view/admin/show-product.php?id=' . $productId);
+                header('Location:../view/show-product.php?id=' . $productId);
             } else {
 
                 if (empty($rating)) {
@@ -113,14 +113,14 @@ class ProductController extends Model
                         VALUES ('$raterUser', '$productId', $rating, '$comment')";
 
                 if (mysqli_query($this->getConnect(), $query)) {
-                    header('Location:../view/admin/show-product.php?id=' . $productId);
+                    header('Location:../view/show-product.php?id=' . $productId);
                 } else {
                     echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
                 }
             }
         }
     }
-
+    
     public function search()
     {
         if (isset($_POST['searchProduct'])) {
@@ -134,13 +134,24 @@ class ProductController extends Model
                     while ($row = mysqli_fetch_assoc($sql)) {
                         $resultOfSearch[] = $row;
                     }
-                    $_SESSION['resultOfSearch'] = $resultOfSearch;
-                    header('Location:../view/admin/products.php');
+                    if ($resultOfSearch) {
+                        $_SESSION['resultOfSearch'] = $resultOfSearch;
+                    }
+                    if ($_SESSION['user']['id'] == 1) {
+                        header('Location:../view/admin/products.php');
+                    } else {
+                        header('Location:../view/user/index.php');
+                    }
                 } else {
                     echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
                 }
             } else {
-                header('Location:../view/admin/products.php');
+                unset($_SESSION['resultOfSearch']);
+                if ($_SESSION['user']['id'] == 1) {
+                    header('Location:../view/admin/products.php');
+                } else {
+                    header('Location:../view/user/index.php');
+                }
             }
         }
     }
@@ -150,51 +161,40 @@ class ProductController extends Model
         if (isset($_POST['createProduct'])) {
             $productDescription = $_POST['description'];
             $productName = $_POST['name'];
-            print_r($productName);  
-            if (isset($_POST['image'])) {
-                $uploadDirectory = "../public/images/";
-                $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];
-                $fileName = $_FILES['image']['name'];
-                $fileSize = $_FILES['image']['size'];
-                $fileTmpName  = $_FILES['image']['tmp_name'];
-                $expodeFile = explode('.', $fileName);
-                $fileExtension = strtolower(end($expodeFile));
-                $newfilename = round(microtime(true)) . '.' . $fileExtension;
-                $errors = [];
-                $uploadPath =  $uploadDirectory . $newfilename;
+            $uploadDirectory = "../public/images/";
+            $fileExtensionsAllowed = ['jpeg', 'jpg', 'png'];
+            $fileName = $_FILES['image']['name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileTmpName  = $_FILES['image']['tmp_name'];
+            $expodeFile = explode('.', $fileName);
+            $fileExtension = strtolower(end($expodeFile));
+            $newfilename = round(microtime(true)) . '.' . $fileExtension;
+            $errors = [];
+            $uploadPath =  $uploadDirectory . $newfilename;
 
-                if (!in_array($fileExtension, $fileExtensionsAllowed)) {
-                    $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
-                }
-
-                if ($fileSize > 25000000) {
-                    $errors[] = "File exceeds maximum size (25MB)";
-                }
-            } else {
-                $uploadPath = null;
+            if (!in_array($fileExtension, $fileExtensionsAllowed)) {
+                $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
             }
 
-            if (empty($productName) && empty($productDescription)) {
-                $errors[] = "Empty field(s)";
-            }
-            $_SESSION['errors'] = $errors;
-            if (empty($errors)) {
-
-                move_uploaded_file($fileTmpName, $uploadPath);
-                $query = "INSERT INTO `products` (`name`, `description`, `image`) 
-                         VALUES ('$productName', '$productDescription', '$uploadPath')";
-
-                if (mysqli_query($this->getConnect(), $query)) {
-                    header('Location:../view/admin/create-product.php');
-                } else {
-                    echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
-                }
-            } else {
-                foreach ($errors as $error) {
-                    echo $error . "These are the errors" . "\n";
-                }
+            if ($fileSize > 25000000) {
+                $errors[] = "File exceeds maximum size (25MB)";
             }
         }
+        if (empty($productName) && empty($productDescription)) {
+            $errors[] = "Empty field(s)";
+        }
+        $_SESSION['errors'] = $errors;
+        if (empty($errors)) {
+            move_uploaded_file($fileTmpName, $uploadPath);
+            $query = "INSERT INTO `products` (`name`, `description`, `image`) 
+                         VALUES ('$productName', '$productDescription', '$uploadPath')";
+
+            if (mysqli_query($this->getConnect(), $query)) {
+                header('Location:../view/admin/create-product.php');
+            } else {
+                echo "Error: " . $query . "<br>" . mysqli_error($this->getConnect());
+            }
+        } 
     }
 }
 

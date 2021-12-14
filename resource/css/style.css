@@ -72,7 +72,7 @@ input {
 
 .signini,
 .signupi {
-    padding: 2em 0;
+    /* padding: 2em 0; */
     background: #fff;
 }
 
@@ -85,9 +85,9 @@ input {
     margin: auto;
 }
 
-.signini form div:not(.signini div:nth-child(3)),
-.signupi form div:not(.signupi div:nth-child(4)) {
-    border: 1px solid gray;
+.signupiDiv,
+.signiniDiv {
+    border: 1px solid;
 }
 
 .signini form div span,

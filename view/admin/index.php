@@ -10,6 +10,10 @@ $countOfUsersProductsReviews = $adminController->countOfUsersProductsReviews();
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
+<div class="logout d-flex" >
+    <p><?php echo $_SESSION['user']['name']. ' ' .$_SESSION['user']['surname']   ?></p>
+    <a class="btn btn-pr" href="../login.php">LogOut</a>
+</div>
 <svg style="display:none;">
     <symbol id="logo" viewBox="0 0 140 59">
         <g>

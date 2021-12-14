@@ -1,28 +1,31 @@
 <?php
+include '../../controllers/ProductController.php';
 
-include '../controllers/ProductController.php';
-include './includes/header.php';
+include '../includes/header.php';
 
 $productController = new ProductController;
-
 array_key_exists('resultOfSearch', $_SESSION) ? $products = $_SESSION['resultOfSearch'] : $products = $productController->index();
-// session_destroy();
 
 if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
+    $paginateNull = false;
 } else if (array_key_exists('offset', $_GET)) {
-    $products = $productController->pagination($_GET['offset']);
-} else {
-    $products = $productController->index();
-}
 
+    $products = $productController->pagination($_GET['offset']);
+    $paginateNull = true;
+} else {
+    $products =  $productController->index();
+    $paginateNull = true;
+}
 $countOfProducts = $productController->countOfProducts();
+
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
 
 ?>
 
-<link rel="stylesheet" href="../resource/css/admin-style.css">
+
+<link rel="stylesheet" href="../../resource/css/admin-style.css">
 
 <style>
     * {
@@ -277,9 +280,12 @@ $offset = ceil($countOfProducts / $limitProducts);
 </style>
 
 <body>
-
+<div class="logout d-flex" >
+    <p><?php echo $_SESSION['user']['name']. ' ' .$_SESSION['user']['surname']   ?></p>
+    <a class="btn btn-pr" href="../login.php">LogOut</a>
+</div>
     <section class="search-and-user">
-        <form action="../controllers/ProductController.php" method="POST">
+        <form action="/../controllers/ProductController.php" method="POST">
             <input type="search" name="searchingProduct" placeholder="Search Product...">
             <button type="submit" name="searchProduct" aria-label="submit form">
                 <svg aria-hidden="true">
@@ -295,12 +301,12 @@ $offset = ceil($countOfProducts / $limitProducts);
                 <?php foreach ($products as $product) { ?>
                     <div class="card">
                         <div class="card_img">
-                            <img src="<?php echo $product['image'] ?>" alt="">
+                            <img src="<?php echo './../' . $product['image'] ?>" alt="">
                         </div>
                         <div class="card_body">
                             <h2 class="card_title"><?php echo $product['name'] ?></h2>
                             <p><?php echo $product['description'] ?></p>
-                            <a href="../view/admin/show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Read article</a>
+                            <a href="../show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Read article</a>
                         </div>
                     </div>
                 <?php } ?>
@@ -314,7 +320,7 @@ $offset = ceil($countOfProducts / $limitProducts);
             </li>
             <?php
             for ($i = 1; $i <= $offset; $i++) { ?>
-                <li class="pageNumber" data-id="<?php echo $i ?>"><a name="pagination" href="../../view/admin/products.php?offset=<?php echo ($i - 1) * 10 ?>"> <?php echo $i ?> </a></li>
+                <li class="pageNumber" data-id="<?php echo $i ?>"><a name="pagination" href="./index.php?offset=<?php echo ($i - 1) * 10 ?>"> <?php echo $i ?> </a></li>
             <?php } ?>
             <li><a href="" class="next">Next ></a></li>
         </ul>

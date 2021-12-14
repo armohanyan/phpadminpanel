@@ -8,20 +8,19 @@ array_key_exists('resultOfSearch', $_SESSION) ? $products = $_SESSION['resultOfS
 
 if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $_SESSION['resultOfSearch'];
-    $paginateNull = false;   
+    $paginateNull = false;
 } else if (array_key_exists('offset', $_GET)) {
+
     $products = $productController->pagination($_GET['offset']);
-    $countOfProducts = $productController->countOfProducts();
-    $paginateNull = true;   
+    $paginateNull = true;
 } else {
     $products =  $productController->index();
-    $paginateNull = true;   
+    $paginateNull = true;
 }
 $countOfProducts = $productController->countOfProducts();
 
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
-session_destroy();
 
 ?>
 
@@ -226,8 +225,6 @@ session_destroy();
 
     }
 
-
-
     .pagination {
         margin: 32px auto;
         width: 38%;
@@ -280,7 +277,7 @@ session_destroy();
 </style>
 
 <body>
-    <svg style="display:none;">z`
+    <svg style="display:none;">
         <symbol id="logo" viewBox="0 0 140 59">
             <g>
                 <path d="M6.8 57c0 .4-.1.7-.2.9-.1.2-.3.4-.4.5-.1.1-.4.199-.5.3-.2 0-.3.1-.5.1-.1 0-.3 0-.5-.1-.2 0-.4-.101-.5-.3-.2 0-.4-.2-.5-.4-.1-.2-.2-.5-.2-.9V44.7h-2c-.3 0-.6-.101-.8-.2-.2-.1-.3-.2-.5-.4s-.2-.3-.2-.4v-.4c0-.1 0-.2.1-.399 0-.2.1-.301.2-.4.1-.1.3-.3.5-.4.1 0 .4-.1.7-.1h2.1v-3.5c0-1 .1-1.9.3-2.7C4.1 35 4.5 34.3 5 33.7c.5-.6 1.1-1.1 1.9-1.4.8-.3 1.7-.5 2.7-.5.9 0 1.5.101 1.8.4.3.3.5.6.5 1.1 0 .3-.1.601-.3.9-.2.3-.6.4-1.2.4h-.6c-.6 0-1.1.101-1.5.301-.4.199-.7.5-.9.8C7.2 36 7 36.5 7 37c-.1.5-.1 1-.1 1.6V42h2.7c.3 0 .6.1.8.2.2.1.3.2.5.399.1.101.2.301.2.401 0 .2.1.3.1.4 0 .1 0 .3-.1.399 0 .2-.1.3-.2.4-.1.1-.3.3-.5.399-.2.101-.5.2-.8.2H6.8V57z" />
@@ -420,35 +417,35 @@ session_destroy();
                 <?php foreach ($products as $product) { ?>
                     <div class="card">
                         <div class="card_img">
-                            <img src="https://alison-application.herokuapp.com/images/default.png" alt="">
+                            <img src="<?php echo './../' . $product['image'] ?>" alt="">
                         </div>
                         <div class="card_body">
                             <h2 class="card_title"><?php echo $product['name'] ?></h2>
                             <p><?php echo $product['description'] ?></p>
-                            <a href="./show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Read Product</a>
+                            <a href="../show-product.php?id=<?php echo $product['id'] ?>" class="read_more">Rate <?php echo $product['name'] ?></a>
                         </div>
                     </div>
                 <?php } ?>
             </div>
         </div>
     </section>
-    <?php if($paginateNull) { ?>
-    <section class="sectionOfPagination">
-        <ul class="pagination">
-            <li><a href="" class="prev">
-                    < Prev</a>
-            </li>
-            <?php
-            for ($i = 1; $i <= $offset; $i++) { ?>
-                <li class="pageNumber" data-id="<?php echo $i ?>"><a name="pagination" href="../../view/admin/products.php?offset=<?php echo ($i - 1) * 10 ?>"> <?php echo $i ?> </a></li>
-            <?php } ?>
-            <li><a href="" class="next">Next ></a></li>
-        </ul>
-    </section>
+    <?php if ($paginateNull) { ?>
+        <section class="sectionOfPagination">
+            <ul class="pagination">
+                <li><a href="" class="prev">
+                        < Prev</a>
+                </li>
+                <?php
+                for ($i = 1; $i <= $offset; $i++) { ?>
+                    <li class="pageNumber" data-id="<?php echo $i ?>"><a name="pagination" href="../../view/admin/products.php?offset=<?php echo ($i - 1) * 10 ?>"> <?php echo $i ?> </a></li>
+                <?php } ?>
+                <li><a href="" class="next">Next ></a></li>
+            </ul>
+        </section>
     <?php } ?>
 </body>
-<script src="../../resource/js/admin-js.js"></script>
-<script sr="../../resource/js/main.js"></script>
+<script src="../resource/js/admin-js.js"></script>
+<script sr="../resource/js/main.js"></script>
 <script>
     $(document).ready(function() {
 

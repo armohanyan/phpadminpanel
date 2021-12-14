@@ -20,7 +20,8 @@
                     session_start();
                     if (array_key_exists('errors',  $_SESSION)) { ?>
                         <span><?php echo $_SESSION['errors'][0] ?></span>
-                    <?php session_destroy();
+                        
+                    <?php     unset($_SESSION['errors']) ;
                     } ?>
                 </div>
                 <div class="signupc">
@@ -36,17 +37,17 @@
             <div class="inputs">
                 <div class="signini">
                     <form action="../controllers/UserController.php" method="post">
-                        <div>
-                            <span class="material-icons">person</span>
-                            <input type="text" name="username" placeholder="Username" required />
+                        <div  class="signiniDiv">
+                            <span class="material-icons">email</span>
+                            <input type="email" name="email" placeholder="Your Email"  />
                         </div>
-                        <div>
+                        <div class="signiniDiv">
                             <span class="material-icons">password</span>
-                            <input type="password" name="password" class="pswrdin" placeholder="Your password"  required />
+                            <input type="password" name="password" class="pswrdin" placeholder="Your password"  />
                             <span class="material-icons visin" onclick="changein()">visibility</span>
                         </div>
                         <div>
-                            <input type="submit" name="submitSignIn" class="b btn" value="Sign In"  required />
+                            <input type="submit" name="submitSignIn" class="b btn" value="Sign In"  />
                             <input type="button" class="btn" value="Sign Up" onclick="showsup()" />
                         </div>
                     </form>
@@ -54,22 +55,26 @@
                 <!-- Register -->
                 <div class="signupi">
                     <form action="../controllers/UserController.php" method="post">
-                        <div>
+                        <div class="signupiDiv">
                             <span class="material-icons">person</span>
-                            <input type="text" name="username" placeholder="Username" required />
+                            <input type="text" name="name" placeholder="Name" required />
                         </div>
-                        <div>
+                        <div class="signupiDiv">
+                            <span class="material-icons">person</span>
+                            <input type="text" name="surname" placeholder="Surname" required />
+                        </div>
+                        <div class="signupiDiv">
                             <span class="material-icons">email</span>
-                            <input type="email" name="email" placeholder="Your email"  required />
+                            <input type="email" name="email" placeholder="Your email" required />
                         </div>
-                        <div>
+                        <div class="signupiDiv">
                             <span class="material-icons">password</span>
-                            <input type="password" name="password" class="pswrdup" placeholder="Your password"  required />
+                            <input type="password" name="password"  class="pswrdup" placeholder="Your password" required />
                             <span class="material-icons visup" onclick="changeup()">visibility</span>
                         </div>
-                        <div>
+                        <div class="signupiDiv"> 
                             <!-- <span class="material-icons">email</span> -->
-                            <input type="number" min="10" name="age" placeholder="Your age" required />
+                            <input type="date" name="age" placeholder="Your age" required/>
                         </div>
                         <div style="border:none">
                             <input type="submit" name="submitSignUp" class="b btn" value="Sign Up" />

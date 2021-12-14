@@ -6,7 +6,7 @@ include '../includes/header.php';
 
 $adminController = new AdminController;
 $users = $adminController->users(); 
-
+// print_r($users);
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">
@@ -140,7 +140,8 @@ $users = $adminController->users();
                 <thead class="table__thead">
                     <tr class="table__head">
                         <th class="table__th">ID</th>
-                        <th class="table__th">USERNAME</th>
+                        <th class="table__th">NAME</th>
+                        <th class="table__th">SURNAME</th>
                         <th class="table__th">EMAIL</th>
                         <th class="table__th">AGE</th>
                     </tr>
@@ -152,8 +153,13 @@ $users = $adminController->users();
                                 <span><?php echo $user['id'] ?></span>
                             </td>
                             <td class="table__td">
-                                <span class="table__value"><?php echo $user['username'] ?></span>
+                                <span class="table__value"><?php echo $user['name'] ?></span>
                             </td>
+
+                            <td class="table__td">
+                                <span class="table__value"><?php echo $user['surname'] ?></span>
+                            </td>
+                            
                             <td class="table__td">
                                 <span class="table__value"><?php echo $user['email'] ?></span>
                             </td>
