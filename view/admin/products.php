@@ -16,7 +16,7 @@ if (array_key_exists('resultOfSearch', $_SESSION)) {
     $products = $productController->index();
     $paginateNull = true;   
 }
-
+array_reverse($products);
 $countOfProducts = $productController->countOfProducts();
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
