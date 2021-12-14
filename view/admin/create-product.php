@@ -2,6 +2,7 @@
 session_start();
 include '../../controllers/AdminController.php';
 include '../includes/header.php';
+include '../../resource/Model.php';  
 
 ?>
 

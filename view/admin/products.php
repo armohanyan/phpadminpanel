@@ -1,9 +1,8 @@
 <?php
 session_start(); 
-$_SESSION['modelPath'] = '../../Model.php';
+// $_SESSION['modelPath'] = '../../Model.php';
 
 include '../../controllers/ProductController.php';
-session_destroy();
 
 include '../includes/header.php';
 
@@ -23,6 +22,7 @@ $countOfProducts = $productController->countOfProducts();
 $limitProducts = 10;
 $offset = ceil($countOfProducts / $limitProducts);
 
+session_destroy();
 ?>
 
 <link rel="stylesheet" href="../../resource/css/admin-style.css">

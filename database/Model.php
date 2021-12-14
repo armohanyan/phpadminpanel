@@ -16,10 +16,10 @@ class Model
         $cleardb_password = $cleardb_url["pass"];
         $cleardb_db = substr($cleardb_url["path"], 1);
 
-        $active_group = 'default';
-        $query_builder = TRUE;   
+        // $active_group = 'default';
+        // $query_builder = TRUE;
 
-        $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+         $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
 
         // $conn = mysqli_connect($servername, $username, $password, $database);
 

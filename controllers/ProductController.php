@@ -1,10 +1,15 @@
 <?php
-if( ! array_key_exists('modelPath',  $_SESSION)){
-    $_SESSION['modelPath'] = '../Model.php';
-}
 
-include $_SESSION['modelPath'];
+// if( ! array_key_exists('modelPath',  $_SESSION)){
+// }
+// $_SESSION['modelPath'] = '../Model.php';
 
+// include $_SESSION['modelPath'];
+
+include '/database/Model.php';  
+
+$file = dirname(__FILE__); 
+print_r($file);
 class ProductController extends Model
 {
 
